@@ -45,8 +45,8 @@ tests:                      # exercised by the generated Galaxy wrapper
   - inputs: 
       infile: test-data/sce.h5ad
     options:
-      coldata: "sum > 5 & detected > 2"
-      rowdata: " "
+      coldata: 'sum > 5 & detected > 2'
+      rowdata: ' '
     outputs:
       outfile:
         file: test-data/sce.filter.h5ad
