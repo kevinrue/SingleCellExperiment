@@ -1,0 +1,54 @@
+biocjobs: "1.0"
+name: sce-filter
+package: SingleCellExperiment
+title: Filter rows and columns of a SingleCellExperiment object
+tagline: Filter rows and columns of a SingleCellExperiment object (H5AD)
+description: >
+  Filter rows and columns of a SingleCellExperiment object
+  stored in an H5AD file.
+version: "0.1.0"
+license: MIT
+script: scripts/sce-filter.R
+depends: [anndataR]
+
+inputs:
+  - name: infile
+    format: h5ad
+    label: Input H5AD file
+    help: >
+      Input H5AD file.
+
+outputs:
+  - name: outfile
+    format: h5ad
+    label: Output H5AD file
+
+options:
+  - name: rowdata
+    type: string
+    default: " "
+    label: Expression applied to filter by row metadata.
+  - name: coldata
+    type: string
+    default: " "
+    label: Expression applied to filter by column metadata.
+
+resources:
+  cpus: 1
+  memory_gb: 4
+  disk_gb: 10
+
+# citations:
+#   - doi: 10.1000/your.method.paper
+
+tests:                      # exercised by the generated Galaxy wrapper
+  - inputs: 
+      infile: test-data/sce.h5ad
+    options:
+      coldata: "sum > 5 & detected > 2"
+      rowdata: " "
+    outputs:
+      outfile:
+        file: test-data/sce.filter.h5ad
+        compare: sim_size
+        delta: 3000
