@@ -9,7 +9,7 @@ description: >
 version: "0.1.0"
 license: MIT
 script: scripts/sce-filter.R
-depends: [anndataR]
+depends: [anndataR, jsonlite]
 
 inputs:
   - name: infile
@@ -18,20 +18,17 @@ inputs:
     help: >
       Input H5AD file.
 
+  - name: metadata_filters
+    format: json
+    label: Metadata predicates
+    help: >
+      Required JSON object with exactly rowdata and coldata sections.
+      Use an empty object to disable filtering for a dimension.
+
 outputs:
   - name: outfile
     format: h5ad
     label: Output H5AD file
-
-options:
-  - name: rowdata
-    type: string
-    default: " "
-    label: Expression applied to filter by row metadata.
-  - name: coldata
-    type: string
-    default: " "
-    label: Expression applied to filter by column metadata.
 
 resources:
   cpus: 1
@@ -44,9 +41,7 @@ resources:
 tests:                      # exercised by the generated Galaxy wrapper
   - inputs: 
       infile: test-data/sce.h5ad
-    options:
-      coldata: 'sum > 5 & detected > 2'
-      rowdata: ' '
+      metadata_filters: test-data/metadata-filters.json
     outputs:
       outfile:
         file: test-data/sce.filter.h5ad

@@ -25,7 +25,8 @@ Suggests:
     Matrix,
     scRNAseq (>= 2.9.1),
     Rtsne,
-    anndataR
+    anndataR,
+    jsonlite
 biocViews: ImmunoOncology, DataRepresentation, DataImport, Infrastructure, SingleCell
 Description: Defines a S4 class for storing data from single-cell
         experiments. This includes specialized methods to store and

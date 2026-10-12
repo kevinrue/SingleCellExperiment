@@ -1,0 +1,9 @@
+{
+  "rowdata": {},
+  "coldata": {
+    "all": [
+      {"field": "sum", "op": "gt", "value": 5},
+      {"field": "detected", "op": "gt", "value": 2}
+    ]
+  }
+}
