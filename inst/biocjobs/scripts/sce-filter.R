@@ -33,6 +33,12 @@ masks <- .metadata_filter_masks(
     rules, SummarizedExperiment::rowData(sce), SummarizedExperiment::colData(sce))
 sce <- sce[masks$rows, masks$cols, drop = FALSE]
 
+# anndataR::write_h5ad() cannot overwrite an existing output file
+# [Galaxy]: this is necessary because Galaxy creates an empty output file during tests
+if (file.exists(params$outfile)) {
+  file.remove(params$outfile)
+}
+
 tryCatch(anndataR::write_h5ad(sce, params$outfile, compression = "gzip"),
     error = function(e) stop("H5AD output failed for ", nrow(sce), " retained rows and ",
         ncol(sce), " retained columns: ", conditionMessage(e), call. = FALSE))
